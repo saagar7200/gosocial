@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 //create post
 
@@ -90,16 +91,24 @@ exports.getPost = async (req, res) => {
 // get timeline post
 
 exports.getTimelinePost = async (req, res) => {
+  console.log("here", req.params.userId);
   try {
-    const currUser = await User.findById(req.body.userId);
+    let currUser = await User.findById(req.params.userId);
+
+    if (!currUser) {
+      return res.status(404).json({ message: "user not found." });
+    }
     const userPost = await Post.find({ userId: currUser._id });
     const friendPost = await Promise.all(
       currUser.followings.map((friendId) => {
         return Post.find({ userId: friendId });
       })
     );
+
     res.status(200).json(userPost.concat(...friendPost));
   } catch (err) {
+    console.log("err", req.params.userId);
+
     res.status(500).json({ message: err.message });
   }
 };

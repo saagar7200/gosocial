@@ -5,6 +5,8 @@ import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
 
 const Profile = () => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+
   return (
     <>
       <Topbar />
@@ -15,12 +17,12 @@ const Profile = () => {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src="assets/person/3.webp"
+                src={`${PF}/person/3.webp`}
                 alt=""
                 className="profileCoverImg"
               />
               <img
-                src="assets/person/1.jpeg"
+                src={`${PF}/person/1.jpeg`}
                 alt=""
                 className="profileUserImg"
               />
