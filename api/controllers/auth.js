@@ -2,14 +2,11 @@ const User = require("../models/User");
 
 //user register controller
 exports.registerUser = async (req, res) => {
-  console.log("here");
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
   });
-
-  console.log("new", newUser);
 
   try {
     const userExist = await User.findOne({ email: req.body.email }).select(
