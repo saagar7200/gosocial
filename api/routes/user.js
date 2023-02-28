@@ -4,10 +4,6 @@ const bcrypt = require("bcrypt");
 // const { findById } = require("../models/User");
 const userController = require("../controllers/userController");
 
-// router.get("/", (req, res) => {
-//   res.send("Welcome to user Homepage");
-// });
-
 //update user
 router.put("/:id", userController.updateUser);
 

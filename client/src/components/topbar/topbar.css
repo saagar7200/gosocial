@@ -93,3 +93,11 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+.userProfile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}

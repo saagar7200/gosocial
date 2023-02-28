@@ -1,10 +1,12 @@
 import "./online.css";
 
 const Online = ({ user }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+
   return (
     <li className="rightbarFriend">
       <div className="rightbarProfileImgContainer">
-        <img src={user.Profile} alt="" className="rightbarProfileImg" />
+        <img src={PF + user.Profile} alt="" className="rightbarProfileImg" />
         <span className="rightbarOnline"></span>
       </div>
       <span className="rightbarUsername">{user.username}</span>

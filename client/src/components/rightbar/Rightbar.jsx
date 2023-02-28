@@ -3,6 +3,8 @@ import "./rightbar.css";
 import { Users } from "../../dummyData";
 
 const Rightbar = ({ profile }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+
   const HomeRightbar = () => {
     return (
       <>
@@ -46,7 +48,7 @@ const Rightbar = ({ profile }) => {
         <div className="rightbarFollowings">
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src={`${PF}/person/1.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -54,7 +56,7 @@ const Rightbar = ({ profile }) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/2.webp"
+              src={`${PF}/person/2.webp`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -62,7 +64,7 @@ const Rightbar = ({ profile }) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/3.webp"
+              src={`${PF}/person/3.webp`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -70,7 +72,7 @@ const Rightbar = ({ profile }) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/4.jpeg"
+              src={`${PF}/person/4.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -78,7 +80,7 @@ const Rightbar = ({ profile }) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/5.webp"
+              src={`${PF}/person/5.webp`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -86,7 +88,7 @@ const Rightbar = ({ profile }) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/6.webp"
+              src={`${PF}/person/6.webp`}
               alt=""
               className="rightbarFollowingImg"
             />
