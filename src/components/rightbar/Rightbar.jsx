@@ -54,7 +54,7 @@ const Rightbar = () => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src="assets/person/2.webp"
               alt=""
               className="rightbarFollowingImg"
             />
@@ -62,7 +62,7 @@ const Rightbar = () => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src="assets/person/3.webp"
               alt=""
               className="rightbarFollowingImg"
             />
@@ -70,7 +70,7 @@ const Rightbar = () => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src="assets/person/4.jpeg"
               alt=""
               className="rightbarFollowingImg"
             />
@@ -78,7 +78,7 @@ const Rightbar = () => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src="assets/person/5.webp"
               alt=""
               className="rightbarFollowingImg"
             />
@@ -86,7 +86,7 @@ const Rightbar = () => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src="assets/person/6.webp"
               alt=""
               className="rightbarFollowingImg"
             />
@@ -100,6 +100,7 @@ const Rightbar = () => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
+        {/* <HomeRightbar /> */}
         <ProfileRightbar />
       </div>
     </div>
