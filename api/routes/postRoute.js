@@ -26,4 +26,5 @@ router.get("/:id", postController.getPost);
 
 router.get("/timeline/:userId", postController.getTimelinePost);
 
+router.get("/get_user_all_post/:username", postController.getUserAllPost);
 module.exports = router;
