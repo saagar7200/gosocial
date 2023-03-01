@@ -1,18 +1,24 @@
 import "./share.css";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Share = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img
-            src={PF + "person/1.jpeg" || `${PF}/person/no_profile.jpg`}
-            alt=""
-            className="shareImg"
-          />
+          <Link to={`/profile/${user.username}`}>
+            <img
+              src={user.profilePicture || `${PF}/person/no_profile.jpg`}
+              alt=""
+              className="shareImg"
+            />
+          </Link>
           <input
             placeholder="What's in your mind saagar?"
             className="shareInput"

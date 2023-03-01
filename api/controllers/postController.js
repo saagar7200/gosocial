@@ -62,11 +62,10 @@ exports.deletePost = async (req, res) => {
 exports.likePost = async (req, res) => {
   try {
     let post = await Post.findById(req.params.id);
-
     if (!post) {
       return res.status(404).json({ message: "Post not found." });
     }
-    if (!post.includes(req.body.userId)) {
+    if (!post.likes.includes(req.body.userId)) {
       post = await post.updateOne({ $push: { likes: req.body.userId } });
       res.status(200).json({ message: "Post has been liked", post });
     } else {
@@ -74,7 +73,7 @@ exports.likePost = async (req, res) => {
       res.status(200).json({ message: "Post has been disliked", post });
     }
   } catch (err) {
-    res.status(500).json("something went wrong.");
+    res.status(500).json({ message: "something went wrong." });
   }
 };
 

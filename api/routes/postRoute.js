@@ -16,7 +16,7 @@ router.put("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePost);
 
 //like/unlike  post
-router.put("/:id", postController.likePost);
+router.put("/:id/like", postController.likePost);
 
 //get a post
 
