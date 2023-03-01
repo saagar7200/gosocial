@@ -1,19 +1,27 @@
 import "./post.css";
 import { MoreVert, Favorite, FavoriteBorder } from "@material-ui/icons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Post = ({ post }) => {
+  const { user: currUser } = useContext(AuthContext);
+
   const [like, setLike] = useState(post.likes.length);
-  const [isLiked, setIsLiked] = useState(
-    false || post.likes.includes("63f260ba86789794216ba72c")
-  );
+
+  const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const [error, setError] = useState({});
 
   const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+
+  //check if post already liked by user or not
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currUser._id));
+  }, [currUser._id, post.likes]);
 
   //fetch user
 
@@ -38,9 +46,14 @@ const Post = ({ post }) => {
 
   //handle like dislike
 
-  const handleLike = () => {
+  const handleLike = async () => {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked((prev) => !prev);
+    try {
+      axios.put("/post/" + post._id + "/like", { userId: currUser._id });
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   return (
     <div className="post">
