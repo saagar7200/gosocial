@@ -2,25 +2,38 @@ import "./post.css";
 import { MoreVert, Favorite, FavoriteBorder } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { format } from "timeago.js";
+import { Link } from "react-router-dom";
+
 const Post = ({ post }) => {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(
     false || post.likes.includes("63f260ba86789794216ba72c")
   );
   const [user, setUser] = useState({});
+  const [error, setError] = useState({});
 
   const PF = process.env.REACT_APP_PUBLIC_FOLFER;
 
   //fetch user
 
   useEffect(() => {
+    //create a controller
+
+    let controller = new AbortController();
     const fetchUsers = async () => {
-      const res = await axios.get(`user/${post.userId}`);
-      console.log(res.data);
-      setUser(res.data);
+      try {
+        const res = await axios.get(`/user?userId=${post.userId}`, {
+          signal: controller.signal,
+        });
+        setUser(res.data);
+      } catch (e) {
+        setError(e.message);
+      }
     };
 
     fetchUsers();
+    return () => controller?.abort();
   }, [post.userId]);
 
   //handle like dislike
@@ -34,14 +47,16 @@ const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={user.profilePicture || `${PF}/person/no_profile.jpg`}
-              alt=""
-              className="postProfileImg"
-            />
+            <Link to={`/profile/${user.username}`}>
+              <img
+                src={user.profilePicture || `${PF}/person/no_profile.jpg`}
+                alt=""
+                className="postProfileImg"
+              />
+            </Link>
             <span className="postUsername">{user.username}</span>
 
-            <span className="postDate">{post?.date}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert className="postIcon" />

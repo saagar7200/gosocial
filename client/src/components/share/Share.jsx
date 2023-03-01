@@ -1,11 +1,18 @@
 import "./share.css";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
+
 const Share = () => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img src="assets/person/1.jpeg" alt="" className="shareImg" />
+          <img
+            src={PF + "person/1.jpeg" || `${PF}/person/no_profile.jpg`}
+            alt=""
+            className="shareImg"
+          />
           <input
             placeholder="What's in your mind saagar?"
             className="shareInput"

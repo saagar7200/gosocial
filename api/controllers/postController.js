@@ -91,7 +91,6 @@ exports.getPost = async (req, res) => {
 // get timeline post
 
 exports.getTimelinePost = async (req, res) => {
-  console.log("here", req.params.userId);
   try {
     let currUser = await User.findById(req.params.userId);
 
@@ -107,8 +106,23 @@ exports.getTimelinePost = async (req, res) => {
 
     res.status(200).json(userPost.concat(...friendPost));
   } catch (err) {
-    console.log("err", req.params.userId);
+    res.status(500).json({ message: err.message });
+  }
+};
 
+// get user's all post
+
+exports.getUserAllPost = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found." });
+    }
+    console.log(user._id);
+    const post = await Post.find({ userId: user._id });
+    res.status(200).json(post);
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };

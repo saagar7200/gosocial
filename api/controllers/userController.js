@@ -19,6 +19,7 @@ exports.updateUser = async (req, res) => {
       });
       res.status(200).json({
         message: "Account has been updated.",
+        user,
       });
     } catch (err) {
       res.status(500).json({ message: err.message });
@@ -57,8 +58,12 @@ exports.deleteUser = async (req, res) => {
 //get single user
 
 exports.getSingleUser = async (req, res) => {
+  const username = req.query.username;
+  const userId = req.query.userId;
   try {
-    const user = await User.findById(req.params.id).select("-password");
+    const user = userId
+      ? await User.findById(userId).select("-password")
+      : await User.findOne({ username: username });
     if (!user) return res.status(404).json({ message: "User not found." });
     res.status(200).json(user);
   } catch (err) {
