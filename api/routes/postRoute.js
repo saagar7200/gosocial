@@ -16,7 +16,7 @@ router.put("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePost);
 
 //like/unlike  post
-router.put("/:id", postController.likePost);
+router.put("/:id/like", postController.likePost);
 
 //get a post
 
@@ -24,6 +24,7 @@ router.get("/:id", postController.getPost);
 
 //get timeline posts
 
-router.get("/timeline/all", postController.getTimelinePost);
+router.get("/timeline/:userId", postController.getTimelinePost);
 
+router.get("/get_user_all_post/:username", postController.getUserAllPost);
 module.exports = router;

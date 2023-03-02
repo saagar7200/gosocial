@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 //create post
 
@@ -61,11 +62,10 @@ exports.deletePost = async (req, res) => {
 exports.likePost = async (req, res) => {
   try {
     let post = await Post.findById(req.params.id);
-
     if (!post) {
       return res.status(404).json({ message: "Post not found." });
     }
-    if (!post.includes(req.body.userId)) {
+    if (!post.likes.includes(req.body.userId)) {
       post = await post.updateOne({ $push: { likes: req.body.userId } });
       res.status(200).json({ message: "Post has been liked", post });
     } else {
@@ -73,7 +73,7 @@ exports.likePost = async (req, res) => {
       res.status(200).json({ message: "Post has been disliked", post });
     }
   } catch (err) {
-    res.status(500).json("something went wrong.");
+    res.status(500).json({ message: "something went wrong." });
   }
 };
 
@@ -91,14 +91,35 @@ exports.getPost = async (req, res) => {
 
 exports.getTimelinePost = async (req, res) => {
   try {
-    const currUser = await User.findById(req.body.userId);
+    let currUser = await User.findById(req.params.userId);
+
+    if (!currUser) {
+      return res.status(404).json({ message: "user not found." });
+    }
     const userPost = await Post.find({ userId: currUser._id });
     const friendPost = await Promise.all(
       currUser.followings.map((friendId) => {
         return Post.find({ userId: friendId });
       })
     );
+
     res.status(200).json(userPost.concat(...friendPost));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// get user's all post
+
+exports.getUserAllPost = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found." });
+    }
+    const post = await Post.find({ userId: user._id });
+    res.status(200).json(post);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
