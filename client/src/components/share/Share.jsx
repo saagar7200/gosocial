@@ -1,15 +1,18 @@
 import "./share.css";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
 import { useContext, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/userContext/AuthContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { getPost } from "../../apiCalls";
+import { PostContext } from "../../context/postContext/PostContext";
 
-const Share = () => {
+const Share = ({ username }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLFER;
   const { user } = useContext(AuthContext);
-  const [file, setFile] = useState();
+  // const [file, setFile] = useState();
   const postTxt = useRef();
+  const { dispatch } = useContext(PostContext);
 
   const handlePost = async (e) => {
     e.preventDefault();
@@ -18,6 +21,8 @@ const Share = () => {
         desc: postTxt.current.value,
         userId: user._id,
       });
+      postTxt.current.value = "";
+      getPost(username, user._id, dispatch);
     } catch (err) {
       console.log("share post ", err.message);
     }

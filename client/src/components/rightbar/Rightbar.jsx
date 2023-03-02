@@ -33,11 +33,11 @@ const Rightbar = ({ user }) => {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Current City:</span>
-            <span className="rightbarInfoValue">{user.currentCity}</span>
+            <span className="rightbarInfoValue">{user.currentCity || "-"}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">{user.from}</span>
+            <span className="rightbarInfoValue">{user.from || "-"}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Relationship:</span>
@@ -46,7 +46,7 @@ const Rightbar = ({ user }) => {
                 ? "Single"
                 : user.relationship === 2
                 ? "Married"
-                : "not to say"}
+                : "not to say" || "-"}
             </span>
           </div>
         </div>

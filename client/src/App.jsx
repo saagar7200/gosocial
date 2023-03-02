@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Profile from "./pages/profile/Profile";
 import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./context/userContext/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);

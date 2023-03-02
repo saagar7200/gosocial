@@ -4,4 +4,14 @@
 
 .feedWrapper {
   padding: 20px;
+  position: relative;
+}
+
+.loader {
+  color: "red";
+  position: absolute !important;
+  top: 100% !important;
+  left: 0px !important;
+  right: 0px !important;
+  margin: auto;
 }
