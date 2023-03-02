@@ -4,11 +4,16 @@ import "./feed.css";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import { useLocation } from "react-router-dom";
 
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState({});
   const { user } = useContext(AuthContext);
+
+  const location = useLocation();
+
+  const usename = location.pathname.split("/")[2];
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,7 +33,7 @@ export default function Feed({ username }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
+        {user.username === username && <Share />}
         {posts.map((post) => (
           <Post key={post._id} post={post} />
         ))}

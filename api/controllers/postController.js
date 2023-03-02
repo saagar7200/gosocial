@@ -118,7 +118,6 @@ exports.getUserAllPost = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "user not found." });
     }
-    console.log(user._id);
     const post = await Post.find({ userId: user._id });
     res.status(200).json(post);
   } catch (err) {
