@@ -1,5 +1,6 @@
 const app = require("./app");
 const mongoose = require("mongoose");
+const cloudinary = require("cloudinary");
 
 process.on("uncaughtException", (err) => {
   console.log(`uncaught Error: ${err.message}`);
@@ -21,6 +22,14 @@ mongoose
     console.log("DB connection error:", err.message);
   });
 
+// Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+//creating server
 const server = app.listen(process.env.PORT, () => {
   console.log(
     `Backend server is running at https://localhost:${process.env.PORT}.`
