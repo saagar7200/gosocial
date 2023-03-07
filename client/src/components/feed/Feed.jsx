@@ -20,21 +20,6 @@ export default function Feed({ username }) {
   const paramsUsername = decodeURI(location.pathname.split("/")[2]);
 
   useEffect(() => {
-    // const fetchPosts = async () => {
-    //   try {
-    //     const res = username
-    //       ? await axios.get(`/post/get_user_all_post/${username}`)
-    //       : await axios.get("post/timeline/" + user._id);
-    //     setPosts(
-    //       res.data.sort(
-    //         (p1, p2) => new Date(p2.createdAt) - new Date(p1.createdAt)
-    //       )
-    //     );
-    //   } catch (e) {
-    //     setError(e.message);
-    //   }
-    // };
-    // fetchPosts();
     getPost(username, user._id, dispatch);
   }, [dispatch, user._id, username]);
 
