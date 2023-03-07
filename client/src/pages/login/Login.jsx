@@ -1,8 +1,8 @@
 import { useContext, useRef } from "react";
 import "./login.css";
 import { loginCall } from "../../apiCalls";
-import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress } from "@material-ui/core";
+import { AuthContext } from "../../context/userContext/AuthContext";
 
 export default function Login() {
   const email = useRef();

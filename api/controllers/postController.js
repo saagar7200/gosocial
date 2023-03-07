@@ -1,15 +1,42 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const cloudinary = require("cloudinary").v2;
 
 //create post
 
 exports.createPost = async (req, res) => {
-  const newPost = new Post(req.body);
   try {
+    //handling images
+    // let images = [];
+
+    // if (typeof req.body.images === "string") {
+    //   images.push(req.body.images);
+    // } else {
+    //   images = req.body.images;
+    // }
+
+    // const imageLinks = [];
+    if (req.body.img) {
+      const result = await cloudinary.uploader.upload(req.body.img, {
+        folder: "user_posts",
+      });
+
+      // for handle multiple file/images
+
+      // for (let i = 0; i < images.length; i++) {
+      //   imageLinks.push({
+      //     img: result.secure_url,
+      //     public_id: result.public_id,
+      //   });
+      // }
+
+      req.body.img = result.secure_url;
+    }
+    const newPost = new Post(req.body);
     const savedPost = await newPost.save();
     res.status(201).json({ savedPost });
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err.message });
   }
 };
 
