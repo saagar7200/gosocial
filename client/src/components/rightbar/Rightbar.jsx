@@ -1,9 +1,17 @@
 import Online from "../online/Online";
 import "./rightbar.css";
 import { Users } from "../../dummyData";
+import { useContext } from "react";
+import { AuthContext } from "../../context/userContext/AuthContext";
 
-const Rightbar = ({ user }) => {
+const Rightbar = ({ User }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLFER;
+
+  const { user } = useContext(AuthContext);
+
+  const users_friends = user.followings.filter((followed_user) =>
+    user.followers.includes(followed_user)
+  );
 
   const HomeRightbar = () => {
     return (
@@ -33,18 +41,18 @@ const Rightbar = ({ user }) => {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Current City:</span>
-            <span className="rightbarInfoValue">{user.currentCity || "-"}</span>
+            <span className="rightbarInfoValue">{User.currentCity || "-"}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">{user.from || "-"}</span>
+            <span className="rightbarInfoValue">{User.from || "-"}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Relationship:</span>
             <span className="rightbarInfoValue">
-              {user.relationship === 1
+              {User.relationship === 1
                 ? "Single"
-                : user.relationship === 2
+                : User.relationship === 2
                 ? "Married"
                 : "not to say" || "-"}
             </span>
@@ -52,54 +60,18 @@ const Rightbar = ({ user }) => {
         </div>
         <h4 className="RightbarTitle">Friends</h4>
         <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}/person/1.jpeg`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jane Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}/person/2.webp`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jane Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}/person/3.webp`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jane Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}/person/4.jpeg`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jane Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}/person/5.webp`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jane Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}/person/6.webp`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jane Carter</span>
-          </div>
+          {users_friends.map((friend) => {
+            return (
+              <div className="rightbarFollowing">
+                <img
+                  src={`${PF}/person/1.jpeg`}
+                  alt=""
+                  className="rightbarFollowingImg"
+                />
+                <span className="rightbarFollowingName">Jane Carter</span>
+              </div>
+            );
+          })}
         </div>
       </>
     );
@@ -108,7 +80,7 @@ const Rightbar = ({ user }) => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        {user ? <ProfileRightbar /> : <HomeRightbar />}
+        {User ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );
