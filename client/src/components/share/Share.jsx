@@ -18,7 +18,7 @@ const Share = ({ username }) => {
   const { user } = useContext(AuthContext);
   const [file, setFile] = useState(null);
   const postTxt = useRef();
-  const { dispatch } = useContext(PostContext);
+  const { dispatch, isFetching } = useContext(PostContext);
 
   const handleChangeFile = (e) => {
     const reader = new FileReader();
@@ -102,7 +102,7 @@ const Share = ({ username }) => {
             </div>
           </div>
 
-          <button className="shareButton" type="submit">
+          <button className="shareButton" type="submit" disabled={isFetching}>
             Share
           </button>
         </form>

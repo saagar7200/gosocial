@@ -65,6 +65,7 @@ const Post = ({ post }) => {
                 src={user.profilePicture || `${PF}/person/no_profile.jpg`}
                 alt=""
                 className="postProfileImg"
+                loading="lazy"
               />
             </Link>
             <span className="postUsername">{user.username}</span>
@@ -80,6 +81,7 @@ const Post = ({ post }) => {
           <img
             src={post?.img}
             // src={PF + post?.img}
+            loading="lazy"
             alt=""
             className="postImg"
           />
